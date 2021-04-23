@@ -1,5 +1,5 @@
 import React from "react";
-import { BlogItem, Button, Gap } from "../../components";
+import { BlogItem, Button, Gap, Header, Sidebar } from "../../components";
 import "./home.scss";
 import { useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -7,57 +7,52 @@ import axios from "axios";
 
 const Home = () => {
   const [message, setMessage] = useState("");
-  const [auth, setAuth] = useState(false);
+  const [data, sedivata] = useState();
 
-  axios
-    .get("https://api.zubiaskitchen.com/v1/user/users", {
-      // .get("http://127.0.0.1:8001/v1/user/users", {
-      withCredentials: true,
-    })
-    .then((res) => console.log(res))
-    .catch((err) => {});
-
-  // axios
-  //   // .get("http://167.71.171.235:8001/v1/user/users", {
-  //   .get("http://localhost:8001/v1/user/users", {
-  //     withCredentials: true,
-  //   })
-  //   .then(function (response) {
-  //     console.log(response);
-  //   })
-  //   .catch(function (error) {
-  //     console.log(error);
-  //   });
-  // setAuth(true);
-
-  // if (localStorage.jwt) {
-  //   const user = jwt.decode(localStorage.jwt);
-  //   console.log(user);
-  // }
-
+  // useEffect(() => {
+  //   try {
+  //     axios
+  //       .get("http://localhost:8002/v1/project/projects")
+  //       .then((res) => {
+  //         sedivata(res.data);
+  //         console.log(res.data);
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }, []);
   const history = useHistory();
   return (
-    <div className="home-page-wrapper">
-      <div className="create-wrapper">
-        <Button
-          title="Create Blog"
-          onClick={() => history.push("/create-blog")}
-        ></Button>
-      </div>
-      <Gap height={20}></Gap>
-      <div className="content-wrapper">
-        <BlogItem></BlogItem>
-        <BlogItem></BlogItem>
-        <BlogItem></BlogItem>
-        <BlogItem></BlogItem>
+    <div>
+      <div class="tile is-ancestor">
+        <Gap height={20}></Gap>
+        <div class="tile is-3 pl-6 is-vertical is-parent">
+          <article class="tile is-child notification is-success">
+            <div class="content">
+              <p class="title">Project</p>
+              <Sidebar></Sidebar>
+              <div class="content"></div>
+            </div>
+          </article>
+        </div>
+
+        <div class="tile is-8 is-parent pt-4 ">
+          <article class="tile is-child notification is-danger">
+            <div class="content"></div>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 ">
+              <BlogItem />
+            </div>
+          </article>
+        </div>
       </div>
       <div className="pagination">
-        <Button title="Previous"></Button>
+        <Button utton title="Previous"></Button>
         <Gap width={20}></Gap>
         <Button title="Next"></Button>
       </div>
-      <Gap height={20}></Gap>
-      {message}
     </div>
   );
 };

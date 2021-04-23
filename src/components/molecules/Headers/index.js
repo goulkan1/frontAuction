@@ -1,67 +1,82 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-function Header() {
+import { Gap } from "../../atoms";
+
+const Header = ({ user, userLogout }) => {
   const history = useHistory();
+  const [register, setRegister] = useState();
+  const [isLogin, setIsLogin] = useState(false);
+
+  useEffect(() => {
+    user = localStorage.getItem("user");
+    if (user) {
+      setIsLogin(true);
+    }
+  }, [user]);
+  console.log(isLogin);
+  const logout = (e) => {
+    e.preventDefault();
+    fetch("https://api.zubiaskitchen.com/v1/auth/logout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+    }).then((response) => {
+      localStorage.clear();
+      setIsLogin(false);
+      console.log("logout");
+      userLogout();
+      history.push("/login");
+    });
+  };
+
   return (
-    // <div classNameName="header">
-    //   <p classNameName="logo-app">Auction</p>
-    //   <p classNameName="menu-item" onClick={() => history.push("/login")}>
-    //     Logout
-    //   </p>
-    // </div>
     <div>
-      <nav className="navbar" role="navigation" aria-label="main navigation">
+      <div id="navbarBasicExample" class="navbar-menu">
         <div className="navbar-brand">
           <a className="navbar-item" href="#">
             <img
               src="https://bulma.io/images/bulma-logo.png"
-              width="112"
-              height="28"
+              maxHeight="70px"
+              class="py-2 px-2"
             ></img>
           </a>
+          <a class="navbar-burger" href="#">
+            <span></span>
+            <span></span>
+            <span></span>
+          </a>
         </div>
-        <a
-          role="button"
-          class="navbar-burger"
-          aria-label="menu"
-          aria-expanded="false"
-          data-target="navbarBasicExample"
-        >
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
-
-        <div id="navbarBasicExample" class="navbar-menu">
-          <div className="navbar-start">
-            <a className="navbar-item" onClick={() => history.push("/")}>
-              Home
-            </a>
-            <a className="navbar-item">Home 2</a>
-          </div>
-
-          <div class="navbar-end">
-            <div class="navbar-item">
-              <div class="buttons">
-                <a
-                  class="button is-primary "
-                  onClick={() => history.push("/register")}
-                >
-                  <strong>Sign up</strong>
-                </a>
-                <a
-                  class="button is-light"
-                  onClick={() => history.push("/login")}
-                >
-                  Log in
-                </a>
-              </div>
-            </div>
-          </div>
+        <div className="navbar-start">
+          <a className="navbar-item" onClick={() => history.push("/")}>
+            Home
+          </a>
+          <a className="navbar-item">Home 2</a>
         </div>
-      </nav>
+
+        <div className="navbar-end">
+          <a
+            className={`button is-light ${isLogin ? "is-hidden" : ""}`}
+            onClick={() => history.push("/register")}
+          >
+            Sign up
+          </a>
+          <a
+            className={`button is-light ${isLogin ? "is-hidden" : ""}`}
+            onClick={() => history.push("/login")}
+          >
+            Log in
+          </a>
+          <Gap width={30}></Gap>
+          <a
+            className={`button is-light ${isLogin ? "" : "is-hidden"}`}
+            onClick={logout}
+          >
+            Log out
+          </a>
+        </div>
+      </div>
     </div>
   );
-}
+};
 
 export default Header;

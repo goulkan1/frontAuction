@@ -8,26 +8,28 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [nama, setNama] = useState("");
   const history = useHistory();
-
-  const register = () => {
-    axios
-      .post(
-        "https://api.zubiaskitchen.com/v1/auth/register",
-        // "http://127.0.0.1:8001/v1/auth/login",
-        {
-          email: email,
-          nama: nama,
-          password: password,
-        },
-        { withCredentials: true }
-      )
-      .then((response) => {
-        console.log(response);
-      });
+  const register = async () => {
+    try {
+      await axios
+        .post(
+          "https://api.zubiaskitchen.com/v1/auth/register",
+          // "http://127.0.0.1:8001/v1/auth/login",
+          {
+            email: email,
+            nama: nama,
+            password: password,
+          },
+          { withCredentials: true }
+        )
+        .then((response) => {
+          console.log(response);
+        });
+    } catch (error) {
+      console.log("salah");
+    }
   };
   return (
     <div>
-      <Header></Header>
       <div class="tile is-ancestor">
         <div class="tile is-3 pl-6 is-vertical is-parent">
           <article class="tile is-child notification is-success">

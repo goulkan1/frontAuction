@@ -3,33 +3,41 @@ import { Footer, Header, Sidebar } from "../../components";
 import { Gap, Input, Link } from "../../components";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import jwt from "jwt-decode";
-import { useCookies } from "react-cookie";
-const Login = () => {
+
+const Login = ({ userLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [nama, setNama] = useState("");
 
-  axios.default.withCredentials = true;
-  const login = () => {
-    axios
-      .post(
-        "https://api.zubiaskitchen.com/v1/auth/login",
-        // "http://127.0.0.1:8001/v1/auth/login",
-        {
-          email: email,
-          password: password,
-        },
-        { withCredentials: true }
-      )
-      .then((response) => {
-        console.log(response);
-      });
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      await axios
+        .post(
+          // v1/auth/islogin
+          "https://api.zubiaskitchen.com/v1/auth/login",
+          // "http://127.0.0.1:8001/v1/auth/login",
+          {
+            email: email,
+            password: password,
+          },
+          { withCredentials: true }
+        )
+        .then((response) => {
+          console.log(response.data.login);
+          localStorage.setItem("user", JSON.stringify(response.data.login));
+          userLogin();
+          history.push("/");
+        });
+    } catch (error) {
+      // console.log("tidak login", auth);
+    }
   };
 
   const history = useHistory();
   return (
     <div>
-      <Header></Header>
       <div class="tile is-ancestor">
         <div class="tile is-3 pl-6 is-vertical is-parent">
           <article class="tile is-child notification is-success">
@@ -53,6 +61,7 @@ const Login = () => {
                     class="input"
                     type="email"
                     placeholder="Email"
+                    value={email}
                     control-padding-vertical="10"
                     onChange={(e) => {
                       setEmail(e.target.value);
@@ -72,6 +81,7 @@ const Login = () => {
                   <input
                     class="input"
                     type="password"
+                    value={password}
                     placeholder="Password"
                     onChange={(e) => {
                       setPassword(e.target.value);
@@ -87,7 +97,8 @@ const Login = () => {
               <input type="checkbox"></input> Remember Me
             </label>
             <Gap height={10}></Gap>
-            <button class="button is-success" onClick={login}>
+            {nama}
+            <button class="button is-success" onClick={(e) => handleLogin(e)}>
               Login
             </button>
           </article>

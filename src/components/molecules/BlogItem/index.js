@@ -1,19 +1,50 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import "./blogitem.scss";
 
 function BlogItem() {
+  const [asd, sedivata] = useState();
+  useEffect(() => {
+    try {
+      axios
+        .get("http://localhost:8002/v1/project/projects")
+        .then((res) => {
+          sedivata(res.data.data);
+          console.log(res.data.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+  console.log(asd);
+
   return (
-    <div className="blog-item">
-      <img
-        src="https://loremipsum.io/assets/images/lorem-ipsum-magazine-layout.jpg"
-        alt="post"
-      ></img>
-      <div className="content-detail">
-        <p className="title">Title Blog</p>
-        <p className="author">Author Blog - Date post</p>
-        <p className="body">Lorem ipsum</p>
-      </div>
-    </div>
+    <>
+      {asd &&
+        asd.map((value) => (
+          <div className="h-72 box border-2 border-green-200" key={value.id}>
+            <p className="h-20 overflow-hidden font-medium text-lg text-center">
+              {value.title}
+            </p>
+            <div className="grid grid-cols-1 gap-2 mt-2">
+              <div className="w-full font-medium text-white text-center bg-gradient-to-r from-green-400 to-blue-500">
+                {value.category}
+              </div>
+              <div className="font-medium">{value.method}</div>
+
+              <div className="flex justify-between">
+                <div className="font-medium">Value : </div>
+                <div className="font-medium text-green-400">{value.value}</div>
+              </div>
+              <div className="font-medium">Location</div>
+              <div>{value.location}</div>
+            </div>
+          </div>
+        ))}
+    </>
   );
 }
 
