@@ -31,7 +31,7 @@ const Login = ({ userLogin }) => {
           history.push("/");
         });
     } catch (error) {
-      // console.log("tidak login", auth);
+      throw error;
     }
   };
 

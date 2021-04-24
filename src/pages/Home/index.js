@@ -1,30 +1,8 @@
 import React from "react";
-import { BlogItem, Button, Gap, Header, Sidebar } from "../../components";
+import { BlogItem, Gap, Pagination, Sidebar } from "../../components";
 import "./home.scss";
-import { useHistory } from "react-router-dom";
-import { useEffect, useState } from "react";
-import axios from "axios";
 
 const Home = () => {
-  const [message, setMessage] = useState("");
-  const [data, sedivata] = useState();
-
-  // useEffect(() => {
-  //   try {
-  //     axios
-  //       .get("http://localhost:8002/v1/project/projects")
-  //       .then((res) => {
-  //         sedivata(res.data);
-  //         console.log(res.data);
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }, []);
-  const history = useHistory();
   return (
     <div>
       <div class="tile is-ancestor">
@@ -45,13 +23,9 @@ const Home = () => {
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 ">
               <BlogItem />
             </div>
+            <Pagination />
           </article>
         </div>
-      </div>
-      <div className="pagination">
-        <Button utton title="Previous"></Button>
-        <Gap width={20}></Gap>
-        <Button title="Next"></Button>
       </div>
     </div>
   );

@@ -13,7 +13,7 @@ function MainApp() {
             <Route path="/create-blog">
               <CreateBlog></CreateBlog>
             </Route>
-            <Route path="/detail-blog">
+            <Route path="/project/:id">
               <DetailBlog></DetailBlog>
             </Route>
             <Route path="/">
