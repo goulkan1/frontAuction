@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 function BlogItem() {
-  const [asd, sedivata] = useState();
+  const [data, sedivata] = useState();
   useEffect(() => {
     try {
       axios
@@ -22,8 +22,8 @@ function BlogItem() {
 
   return (
     <>
-      {asd &&
-        asd.map((value) => (
+      {data &&
+        data.map((value) => (
           <Link to={`/project/${value._id}`}>
             <div
               className="h-72 box border-2 border-green-200"

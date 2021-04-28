@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function index() {
   return (
@@ -7,7 +8,9 @@ function index() {
         <p class="menu-label">General</p>
         <ul class="menu-list">
           <li>
-            <a>Dashboard</a>
+            <Link to="/project">
+              <a>Project</a>
+            </Link>
           </li>
           <li>
             <a>Customers</a>

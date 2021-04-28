@@ -6,9 +6,8 @@ const Home = () => {
   return (
     <div>
       <div class="tile is-ancestor">
-        <Gap height={20}></Gap>
         <div class="tile is-3 pl-6 is-vertical is-parent">
-          <article class="tile is-child notification is-success">
+          <article class="tile is-child ">
             <div class="content">
               <p class="title">Project</p>
               <Sidebar></Sidebar>

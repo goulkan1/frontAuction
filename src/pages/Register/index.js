@@ -12,8 +12,7 @@ const Register = () => {
     try {
       await axios
         .post(
-          "https://api.zubiaskitchen.com/v1/auth/register",
-          // "http://127.0.0.1:8001/v1/auth/login",
+          "http://localhost:8001/v1/auth/register",
           {
             email: email,
             nama: nama,

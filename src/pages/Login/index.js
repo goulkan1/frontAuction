@@ -15,9 +15,7 @@ const Login = ({ userLogin }) => {
     try {
       await axios
         .post(
-          // v1/auth/islogin
-          "https://api.zubiaskitchen.com/v1/auth/login",
-          // "http://127.0.0.1:8001/v1/auth/login",
+          "http://localhost:8001/v1/auth/login",
           {
             email: email,
             password: password,
@@ -26,7 +24,7 @@ const Login = ({ userLogin }) => {
         )
         .then((response) => {
           console.log(response.data.login);
-          localStorage.setItem("user", JSON.stringify(response.data.login));
+          localStorage.setItem("user", response.data.login._id);
           userLogin();
           history.push("/");
         });
